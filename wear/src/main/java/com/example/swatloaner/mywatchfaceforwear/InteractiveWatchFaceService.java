@@ -37,7 +37,7 @@ import com.example.swatloaner.mywatchfaceforwear.R;
  */
 public class InteractiveWatchFaceService extends CanvasWatchFaceService {
 
-    private static final String TAG = "InteractiveWatchFace";
+    private static final String TAG = "JAMES AND PUYUSH ";
 
     private static final Typeface BOLD_TYPEFACE =
             Typeface.create(Typeface.SANS_SERIF, Typeface.BOLD);

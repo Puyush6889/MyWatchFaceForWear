@@ -45,7 +45,7 @@ import java.util.List;
 public class ComplicationSimpleConfigActivity extends Activity implements
         WearableListView.ClickListener {
 
-    private static final String TAG = "CompSimpleConfig";
+    private static final String TAG = "TESTING FOR FUN";
 
     private static final int PROVIDER_CHOOSER_REQUEST_CODE = 1;
 
