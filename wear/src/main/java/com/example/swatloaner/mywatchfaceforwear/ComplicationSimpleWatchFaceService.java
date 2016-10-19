@@ -46,7 +46,8 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 
-import com.example.android.wearable.watchface.R;import java.util.Calendar;
+import com.example.swatloaner.mywatchfaceforwear.R;
+import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 

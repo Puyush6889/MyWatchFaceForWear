@@ -343,7 +343,7 @@ public class MyWatchFace extends CanvasWatchFaceService {
                 case TAP_TYPE_TAP:
                     // The user has completed the tap gesture.
                     // TODO: Add code to handle the tap gesture.
-                    Toast.makeText(getApplicationContext(), R.string.message, Toast.LENGTH_SHORT)
+                    Toast.makeText(getApplicationContext(), "THIS is awesome", Toast.LENGTH_SHORT)
                             .show();
                     break;
             }
