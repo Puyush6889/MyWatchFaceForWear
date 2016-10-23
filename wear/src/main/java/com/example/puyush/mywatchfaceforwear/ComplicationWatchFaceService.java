@@ -43,7 +43,7 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 
-import com.example.puyush.mywatchfaceforwear.R;
+import com.example.android.wearable.complications.R;
 
 import java.util.Calendar;
 import java.util.TimeZone;

@@ -33,8 +33,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.android.wearable.complications.R;
 import com.example.puyush.mywatchfaceforwear.ComplicationWatchFaceService;
-import com.example.puyush.mywatchfaceforwear.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
