@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The Android Open Source Project
+ * Copyright (C) 2016 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.swatloaner.mywatchfaceforwear;
+package com.example.puyush.mywatchfaceforwear;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -33,19 +33,19 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.swatloaner.mywatchfaceforwear.ComplicationSimpleWatchFaceService;
-import com.example.swatloaner.mywatchfaceforwear.R;
+import com.example.puyush.mywatchfaceforwear.ComplicationWatchFaceService;
+import com.example.puyush.mywatchfaceforwear.R;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The watch-side config activity for {@link ComplicationSimpleWatchFaceService}, which
- * allows for setting complications on the left and right of watch face.
+ * The watch-side config activity for {@link ComplicationWatchFaceService}, which
+ * allows for setting complications on right and left of watch face.
  */
-public class ComplicationSimpleConfigActivity extends Activity implements
+public class WatchFaceConfigActivity extends Activity implements
         WearableListView.ClickListener {
 
-    private static final String TAG = "TESTING FOR FUN";
+    private static final String TAG = "WatchFaceConfig";
 
     private static final int PROVIDER_CHOOSER_REQUEST_CODE = 1;
 
@@ -55,7 +55,7 @@ public class ComplicationSimpleConfigActivity extends Activity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_complication_simple_config);
+        setContentView(R.layout.activity_watch_face_config);
 
         mAdapter = new ConfigurationAdapter(getApplicationContext(), getComplicationItems());
 
@@ -81,9 +81,7 @@ public class ComplicationSimpleConfigActivity extends Activity implements
 
     @Override
     public void onClick(WearableListView.ViewHolder viewHolder) {
-        if (Log.isLoggable(TAG, Log.DEBUG)) {
-            Log.d(TAG, "onClick()");
-        }
+        Log.d(TAG, "onClick()");
 
         Integer tag = (Integer) viewHolder.itemView.getTag();
         ComplicationItem complicationItem = mAdapter.getItem(tag);
@@ -102,20 +100,20 @@ public class ComplicationSimpleConfigActivity extends Activity implements
 
     private List<ComplicationItem> getComplicationItems() {
         ComponentName watchFace = new ComponentName(
-                getApplicationContext(), ComplicationSimpleWatchFaceService.class);
+                getApplicationContext(), ComplicationWatchFaceService.class);
 
         String[] complicationNames =
-                getResources().getStringArray(R.array.complication_simple_names);
+                getResources().getStringArray(R.array.complication_names);
 
-        int[] complicationIds = ComplicationSimpleWatchFaceService.COMPLICATION_IDS;
+        int[] complicationIds = ComplicationWatchFaceService.COMPLICATION_IDS;
 
-        TypedArray icons = getResources().obtainTypedArray(R.array.complication_simple_icons);
+        TypedArray icons = getResources().obtainTypedArray(R.array.complication_icons);
 
         List<ComplicationItem> items = new ArrayList<>();
         for (int i = 0; i < complicationIds.length; i++) {
             items.add(new ComplicationItem(watchFace,
                     complicationIds[i],
-                    ComplicationSimpleWatchFaceService.COMPLICATION_SUPPORTED_TYPES[i],
+                    ComplicationWatchFaceService.COMPLICATION_SUPPORTED_TYPES[i],
                     icons.getDrawable(i),
                     complicationNames[i]));
         }
@@ -124,9 +122,7 @@ public class ComplicationSimpleConfigActivity extends Activity implements
 
     @Override
     public void onTopEmptyRegionClick() {
-        if (Log.isLoggable(TAG, Log.DEBUG)) {
-            Log.d(TAG, "onTopEmptyRegionClick()");
-        }
+        Log.d(TAG, "onTopEmptyRegionClick()");
     }
 
     /*
@@ -178,7 +174,7 @@ public class ComplicationSimpleConfigActivity extends Activity implements
 
             // Inflate custom layout for list items.
             return new ItemViewHolder(
-                    mInflater.inflate(R.layout.activity_complication_simple_list_item, null));
+                    mInflater.inflate(R.layout.activity_watch_face_config_list_item, null));
         }
 
         @Override
