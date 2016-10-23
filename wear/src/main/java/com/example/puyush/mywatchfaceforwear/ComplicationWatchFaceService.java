@@ -14,40 +14,40 @@
  * limitations under the License.
  */
 package com.example.puyush.mywatchfaceforwear;
+        import android.app.PendingIntent;
+        import android.content.BroadcastReceiver;
+        import android.content.ComponentName;
+        import android.content.Context;
+        import android.content.Intent;
+        import android.content.IntentFilter;
+        import android.graphics.Bitmap;
+        import android.graphics.BitmapFactory;
+        import android.graphics.Canvas;
+        import android.graphics.Color;
+        import android.graphics.ColorMatrix;
+        import android.graphics.ColorMatrixColorFilter;
+        import android.graphics.Paint;
+        import android.graphics.Rect;
+        import android.graphics.Typeface;
+        import android.os.Bundle;
+        import android.os.Handler;
+        import android.os.Message;
+        import android.support.wearable.complications.ComplicationData;
+        import android.support.wearable.complications.ComplicationHelperActivity;
+        import android.support.wearable.complications.ComplicationText;
+        import android.support.wearable.watchface.CanvasWatchFaceService;
+        import android.support.wearable.watchface.WatchFaceStyle;
+        import android.text.TextUtils;
+        import android.util.Log;
+        import android.util.SparseArray;
+        import android.view.SurfaceHolder;
 
-import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.Typeface;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.wearable.complications.ComplicationData;
-import android.support.wearable.complications.ComplicationHelperActivity;
-import android.support.wearable.complications.ComplicationText;
-import android.support.wearable.watchface.CanvasWatchFaceService;
-import android.support.wearable.watchface.WatchFaceStyle;
-import android.text.TextUtils;
-import android.util.Log;
-import android.util.SparseArray;
-import android.view.SurfaceHolder;
+        import com.example.android.wearable.complications.R;
 
-import com.example.android.wearable.complications.R;
+        import java.util.Calendar;
+        import java.util.TimeZone;
+        import java.util.concurrent.TimeUnit;
 
-import java.util.Calendar;
-import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Watch Face for "Adding Complications to your Watch Face" code lab.

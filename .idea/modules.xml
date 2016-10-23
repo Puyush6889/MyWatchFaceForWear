@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/1-base/1-base.iml" filepath="$PROJECT_DIR$/1-base/1-base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/2-receive-data/2-receive-data.iml" filepath="$PROJECT_DIR$/2-receive-data/2-receive-data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/3-choose-data/3-choose-data.iml" filepath="$PROJECT_DIR$/3-choose-data/3-choose-data.iml" />
+      <module fileurl="file://$PROJECT_DIR$/4-render-complications/4-render-complications.iml" filepath="$PROJECT_DIR$/4-render-complications/4-render-complications.iml" />
+      <module fileurl="file://$PROJECT_DIR$/5-enable-tap/5-enable-tap.iml" filepath="$PROJECT_DIR$/5-enable-tap/5-enable-tap.iml" />
       <module fileurl="file://$PROJECT_DIR$/MyWatchFaceForWear.iml" filepath="$PROJECT_DIR$/MyWatchFaceForWear.iml" />
-      <module fileurl="file://$PROJECT_DIR$/mobile/mobile.iml" filepath="$PROJECT_DIR$/mobile/mobile.iml" />
+      <module fileurl="file://$PROJECT_DIR$/complete/complete.iml" filepath="$PROJECT_DIR$/complete/complete.iml" />
       <module fileurl="file://$PROJECT_DIR$/wear/wear.iml" filepath="$PROJECT_DIR$/wear/wear.iml" />
     </modules>
   </component>

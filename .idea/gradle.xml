@@ -9,7 +9,12 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/mobile" />
+            <option value="$PROJECT_DIR$/1-base" />
+            <option value="$PROJECT_DIR$/2-receive-data" />
+            <option value="$PROJECT_DIR$/3-choose-data" />
+            <option value="$PROJECT_DIR$/4-render-complications" />
+            <option value="$PROJECT_DIR$/5-enable-tap" />
+            <option value="$PROJECT_DIR$/complete" />
             <option value="$PROJECT_DIR$/wear" />
           </set>
         </option>
