@@ -89,6 +89,7 @@ public class ComplicationWatchFaceService extends CanvasWatchFaceService {
         private static final float HAND_END_CAP_RADIUS = 4f;
         private static final float STROKE_WIDTH = 4f;
         private static final int SHADOW_RADIUS = 6;
+        private static final String FAKE_DATA = "3,780";
 
         private Calendar mCalendar;
 
