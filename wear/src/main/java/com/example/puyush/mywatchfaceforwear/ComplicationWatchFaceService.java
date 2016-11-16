@@ -42,8 +42,9 @@ package com.example.puyush.mywatchfaceforwear;
         import android.util.SparseArray;
         import android.view.SurfaceHolder;
 
-        import com.example.android.wearable.complications.R;
+//        import com.example.android.wearable.complications.R;
 
+        import java.io.Console;
         import java.util.Calendar;
         import java.util.TimeZone;
         import java.util.concurrent.TimeUnit;
@@ -175,22 +176,39 @@ public class ComplicationWatchFaceService extends CanvasWatchFaceService {
 
             mCalendar = Calendar.getInstance();
 
-            initializeBackground();
+            initializeBackground(0);
 
             initializeComplications();
 
             initializeHands();
         }
-        public int tapTouch  = 0;
-        private void initializeBackground() {
-            mBackgroundPaint = new Paint();
-            mBackgroundPaint.setColor(Color.BLACK);
-            int backgroundResId = R.drawable.custom_background2;
 
-            if( tapTouch % 2 == 0)
-            {
-                backgroundResId = R.drawable.custom_background;
+        public int tapTouch  = 0;
+        private int sector1 = 0;
+        private int sector2 = 0;
+        private int sector3 = 0;
+        private int sector4 = 0;
+        private void initializeBackground(int post) {
+            int backgroundResId;
+            if(post == 0) {
+                mBackgroundPaint = new Paint();
+                mBackgroundPaint.setColor(Color.BLACK);
+                backgroundResId = R.drawable.black;
             }
+
+            if(post==1) {
+                backgroundResId = R.drawable.green;
+            }
+            else if(post == 2) {
+                backgroundResId = R.drawable.blue;
+            }
+            else if(post == 3) {
+                backgroundResId = R.drawable.pink;
+            }
+            else {
+                backgroundResId = R.drawable.yellow;
+            }
+
             mBackgroundBitmap = BitmapFactory.decodeResource(getResources(), backgroundResId);
         }
 
@@ -244,8 +262,29 @@ public class ComplicationWatchFaceService extends CanvasWatchFaceService {
             switch (tapType) {
                 case TAP_TYPE_TAP:
                     tapTouch++;
-                    initializeBackground();
+
                     int tappedComplicationId = getTappedComplicationId(x, y);
+
+                    if (x<=140 && y<= 140) {
+                        Log.e("fucked up", x+" "+y);
+                        initializeBackground(1);
+                    } else if (x<=140 && y>=140)
+                    {
+                        sector2  = getTappedComplicationId(x,y);
+                        initializeBackground(2);
+                    }
+                    else if (x>=140 && y>=140)
+                    {
+                        sector3 = getTappedComplicationId(x , y);
+                        initializeBackground(3);
+                    }
+                    else
+                    {
+                        sector4 = getTappedComplicationId(x , y);
+                        initializeBackground(4);
+
+                    }
+
                     if (tappedComplicationId != -1) {
                         onComplicationTap(tappedComplicationId);
                     }
