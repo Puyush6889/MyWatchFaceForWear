@@ -45,6 +45,7 @@ package com.example.puyush.mywatchfaceforwear;
 //        import com.example.android.wearable.complications.R;
 
         import java.io.Console;
+        import java.text.NumberFormat;
         import java.util.Calendar;
         import java.util.TimeZone;
         import java.util.concurrent.TimeUnit;
@@ -89,9 +90,10 @@ public class ComplicationWatchFaceService extends CanvasWatchFaceService {
         private static final float HAND_END_CAP_RADIUS = 4f;
         private static final float STROKE_WIDTH = 4f;
         private static final int SHADOW_RADIUS = 6;
-        private static final String FAKE_DATA = "3,780";
+        private int FAKE_DATA = 3000;
 
         private Calendar mCalendar;
+        Paint dataPaint = new Paint();
 
         // Variables for painting Background
         private Paint mBackgroundPaint;
@@ -185,10 +187,6 @@ public class ComplicationWatchFaceService extends CanvasWatchFaceService {
         }
 
         public int tapTouch  = 0;
-        private int sector1 = 0;
-        private int sector2 = 0;
-        private int sector3 = 0;
-        private int sector4 = 0;
         private void initializeBackground(int post) {
             int backgroundResId;
             if(post == 0) {
@@ -197,17 +195,27 @@ public class ComplicationWatchFaceService extends CanvasWatchFaceService {
                 backgroundResId = R.drawable.black;
             }
 
-            if(post==1) {
+            else if(post==1) {
                 backgroundResId = R.drawable.green;
+                FAKE_DATA = FAKE_DATA*2;
+                dataPaint.setColor(Color.rgb(252,102,102));
             }
             else if(post == 2) {
                 backgroundResId = R.drawable.blue;
+                dataPaint.setColor(Color.rgb(255,153,51));
+                if( FAKE_DATA > 0) {
+                    FAKE_DATA--;
+                }
             }
             else if(post == 3) {
                 backgroundResId = R.drawable.pink;
+                dataPaint.setColor(Color.WHITE);
+                FAKE_DATA++;
             }
             else {
                 backgroundResId = R.drawable.yellow;
+                dataPaint.setColor(Color.rgb(127,0,255));
+                FAKE_DATA = FAKE_DATA/2;
             }
 
             mBackgroundBitmap = BitmapFactory.decodeResource(getResources(), backgroundResId);
@@ -271,19 +279,15 @@ public class ComplicationWatchFaceService extends CanvasWatchFaceService {
                         initializeBackground(1);
                     } else if (x<=140 && y>=140)
                     {
-                        sector2  = getTappedComplicationId(x,y);
                         initializeBackground(2);
                     }
                     else if (x>=140 && y>=140)
                     {
-                        sector3 = getTappedComplicationId(x , y);
                         initializeBackground(3);
                     }
                     else
                     {
-                        sector4 = getTappedComplicationId(x , y);
                         initializeBackground(4);
-
                     }
 
                     if (tappedComplicationId != -1) {
@@ -422,6 +426,7 @@ public class ComplicationWatchFaceService extends CanvasWatchFaceService {
              * whether we're in ambient mode), so we may need to start or stop the timer.
              */
             updateTimer();
+            initializeBackground(0);
         }
 
         @Override
@@ -482,6 +487,21 @@ public class ComplicationWatchFaceService extends CanvasWatchFaceService {
             drawComplications(canvas, now);
 
             drawHands(canvas);
+            dataHandler(canvas);
+        }
+
+        private void dataHandler(Canvas canvas)
+        {
+            float newXOffset = mCenterX-50;
+            float newYOffset = mCenterY+120;
+            NumberFormat myFormat = NumberFormat.getInstance();
+            myFormat.setGroupingUsed(true);
+            String text = myFormat.format(FAKE_DATA);
+            onDesiredSizeChanged(100, 100);
+
+            dataPaint.setTextSize(50);
+            canvas.drawText(text,  newXOffset, newYOffset, dataPaint);
+
         }
 
         private void drawComplications(Canvas canvas, long currentTimeMillis) {
@@ -620,6 +640,7 @@ public class ComplicationWatchFaceService extends CanvasWatchFaceService {
              */
             updateTimer();
         }
+
 
         private void registerReceiver() {
             if (mRegisteredTimeZoneReceiver) {
