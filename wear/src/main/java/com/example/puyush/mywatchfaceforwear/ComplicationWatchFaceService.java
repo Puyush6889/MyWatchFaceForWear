@@ -41,6 +41,7 @@ package com.example.puyush.mywatchfaceforwear;
         import android.util.Log;
         import android.util.SparseArray;
         import android.view.SurfaceHolder;
+        import android.view.View;
 
 //        import com.example.android.wearable.complications.R;
 
@@ -48,6 +49,8 @@ package com.example.puyush.mywatchfaceforwear;
         import java.text.NumberFormat;
         import java.util.Calendar;
         import java.util.TimeZone;
+        import java.util.Timer;
+        import java.util.TimerTask;
         import java.util.concurrent.TimeUnit;
 
 
@@ -60,6 +63,8 @@ public class ComplicationWatchFaceService extends CanvasWatchFaceService {
 
     private static final int LEFT_DIAL_COMPLICATION = 0;
     private static final int RIGHT_DIAL_COMPLICATION = 1;
+
+    public int tapTouch  = 0;
 
     public static final int[] COMPLICATION_IDS = {LEFT_DIAL_COMPLICATION, RIGHT_DIAL_COMPLICATION};
 
@@ -114,7 +119,6 @@ public class ComplicationWatchFaceService extends CanvasWatchFaceService {
          * present if the user has chosen a provider via the settings activity for the watch face.
          */
         private SparseArray<ComplicationData> mActiveComplicationDataSparseArray;
-
 
         // Watch Face Hand related objects
         private Paint mHandPaint;
@@ -186,21 +190,37 @@ public class ComplicationWatchFaceService extends CanvasWatchFaceService {
             initializeHands();
         }
 
-        public int tapTouch  = 0;
+
+
         private void initializeBackground(int post) {
             int backgroundResId;
             if(post == 0) {
-                mBackgroundPaint = new Paint();
-                mBackgroundPaint.setColor(Color.BLACK);
+//                mBackgroundPaint = new Paint();
+//                mBackgroundPaint.setColor(Color.BLACK);
                 backgroundResId = R.drawable.black;
-            }
 
+            }
             else if(post==1) {
+                Timer t = new Timer();
+                t.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        Intent i=new Intent(ComplicationWatchFaceService.this, MainActivity2.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(i);
+
+                        // If you want to call Activity then call from here for 5 seconds it automatically call and your image disappear....
+                    }
+                }, 5000);
+
                 backgroundResId = R.drawable.green;
                 FAKE_DATA = FAKE_DATA*2;
                 dataPaint.setColor(Color.rgb(252,102,102));
             }
             else if(post == 2) {
+                Intent i = new Intent(ComplicationWatchFaceService.this, RightTopSide.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
                 backgroundResId = R.drawable.blue;
                 dataPaint.setColor(Color.rgb(255,153,51));
                 if( FAKE_DATA > 0) {
@@ -208,11 +228,17 @@ public class ComplicationWatchFaceService extends CanvasWatchFaceService {
                 }
             }
             else if(post == 3) {
+                Intent i=new Intent(ComplicationWatchFaceService.this, LeftBottomSide.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
                 backgroundResId = R.drawable.pink;
                 dataPaint.setColor(Color.WHITE);
                 FAKE_DATA++;
             }
             else {
+                Intent i = new Intent(ComplicationWatchFaceService.this, RightBottomSide.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
                 backgroundResId = R.drawable.yellow;
                 dataPaint.setColor(Color.rgb(127,0,255));
                 FAKE_DATA = FAKE_DATA/2;
@@ -267,13 +293,11 @@ public class ComplicationWatchFaceService extends CanvasWatchFaceService {
         @Override
         public void onTapCommand(int tapType, int x, int y, long eventTime) {
             // TODO: Step 5, OnTapCommand()
-            Log.d(TAG, "OnTapCommand()");
             switch (tapType) {
                 case TAP_TYPE_TAP:
                     tapTouch++;
 
                     int tappedComplicationId = getTappedComplicationId(x, y);
-
                     if (x<=140 && y<= 140) {
                         Log.e("fucked up", x+" "+y);
                         initializeBackground(1);
