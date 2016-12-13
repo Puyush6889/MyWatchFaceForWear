@@ -17,8 +17,6 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/step_graphs"
-        />
-
+        android:background="@drawable/group_heartate"/>
 
 </android.support.wearable.view.BoxInsetLayout>

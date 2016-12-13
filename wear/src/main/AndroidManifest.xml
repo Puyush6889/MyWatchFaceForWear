@@ -93,7 +93,8 @@
 
         <activity android:name=".RightTopSide" />
         <activity android:name=".LeftBottomSide" />
-        <activity android:name=".RightBottomSide"></activity>
+        <activity android:name=".RightBottomSide" />
+        <activity android:name=".LeftTopSide"></activity>
     </application>
 
 </manifest>

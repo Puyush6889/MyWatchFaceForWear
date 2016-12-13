@@ -14,44 +14,41 @@
  * limitations under the License.
  */
 package com.example.puyush.mywatchfaceforwear;
-        import android.app.PendingIntent;
-        import android.content.BroadcastReceiver;
-        import android.content.ComponentName;
-        import android.content.Context;
-        import android.content.Intent;
-        import android.content.IntentFilter;
-        import android.graphics.Bitmap;
-        import android.graphics.BitmapFactory;
-        import android.graphics.Canvas;
-        import android.graphics.Color;
-        import android.graphics.ColorMatrix;
-        import android.graphics.ColorMatrixColorFilter;
-        import android.graphics.Paint;
-        import android.graphics.Rect;
-        import android.graphics.Typeface;
-        import android.os.Bundle;
-        import android.os.Handler;
-        import android.os.Message;
-        import android.support.wearable.complications.ComplicationData;
-        import android.support.wearable.complications.ComplicationHelperActivity;
-        import android.support.wearable.complications.ComplicationText;
-        import android.support.wearable.watchface.CanvasWatchFaceService;
-        import android.support.wearable.watchface.WatchFaceStyle;
-        import android.text.TextUtils;
-        import android.util.Log;
-        import android.util.SparseArray;
-        import android.view.SurfaceHolder;
-        import android.view.View;
+
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.wearable.complications.ComplicationData;
+import android.support.wearable.complications.ComplicationHelperActivity;
+import android.support.wearable.complications.ComplicationText;
+import android.support.wearable.watchface.CanvasWatchFaceService;
+import android.support.wearable.watchface.WatchFaceStyle;
+import android.text.TextUtils;
+import android.util.Log;
+import android.util.SparseArray;
+import android.view.SurfaceHolder;
+
+import java.text.NumberFormat;
+import java.util.Calendar;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
 //        import com.example.android.wearable.complications.R;
-
-        import java.io.Console;
-        import java.text.NumberFormat;
-        import java.util.Calendar;
-        import java.util.TimeZone;
-        import java.util.Timer;
-        import java.util.TimerTask;
-        import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -95,7 +92,9 @@ public class ComplicationWatchFaceService extends CanvasWatchFaceService {
         private static final float HAND_END_CAP_RADIUS = 4f;
         private static final float STROKE_WIDTH = 4f;
         private static final int SHADOW_RADIUS = 6;
-        private int FAKE_DATA = 3000;
+        private final int mCenterXHeight = 50;
+        private final int mCenterYWidth = 120;
+        private int DATA = 3000;
 
         private Calendar mCalendar;
         Paint dataPaint = new Paint();
@@ -201,20 +200,23 @@ public class ComplicationWatchFaceService extends CanvasWatchFaceService {
 
             }
             else if(post==1) {
-                Timer t = new Timer();
-                t.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        Intent i=new Intent(ComplicationWatchFaceService.this, MainActivity2.class);
-                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(i);
-
-                        // If you want to call Activity then call from here for 5 seconds it automatically call and your image disappear....
-                    }
-                }, 5000);
+//          #Todo was trying to use the timer task destroy the activity so we could atomically
+//                Timer t = new Timer();
+//                t.schedule(new TimerTask() {
+//                    @Override
+//                    public void run() {
+//                        Intent i=new Intent(ComplicationWatchFaceService.this,LeftTopSide.class);
+//                        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//                        startActivity(i);
+//
+//                        // If you want to call Activity then call from here for 5 seconds it automatically call and your image disappear....
+//                    }
+//                }, 5000);
+                Intent i=new Intent(ComplicationWatchFaceService.this,LeftTopSide.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
 
                 backgroundResId = R.drawable.green;
-                FAKE_DATA = FAKE_DATA*2;
                 dataPaint.setColor(Color.rgb(252,102,102));
             }
             else if(post == 2) {
@@ -223,8 +225,8 @@ public class ComplicationWatchFaceService extends CanvasWatchFaceService {
                 startActivity(i);
                 backgroundResId = R.drawable.blue;
                 dataPaint.setColor(Color.rgb(255,153,51));
-                if( FAKE_DATA > 0) {
-                    FAKE_DATA--;
+                if( DATA > 0) {
+                    DATA--;
                 }
             }
             else if(post == 3) {
@@ -233,15 +235,14 @@ public class ComplicationWatchFaceService extends CanvasWatchFaceService {
                 startActivity(i);
                 backgroundResId = R.drawable.pink;
                 dataPaint.setColor(Color.WHITE);
-                FAKE_DATA++;
+                DATA++;
             }
             else {
                 Intent i = new Intent(ComplicationWatchFaceService.this, RightBottomSide.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
-                backgroundResId = R.drawable.yellow;
+                backgroundResId = R.drawable.orange;
                 dataPaint.setColor(Color.rgb(127,0,255));
-                FAKE_DATA = FAKE_DATA/2;
             }
 
             mBackgroundBitmap = BitmapFactory.decodeResource(getResources(), backgroundResId);
@@ -514,13 +515,18 @@ public class ComplicationWatchFaceService extends CanvasWatchFaceService {
             dataHandler(canvas);
         }
 
+        /**
+         * puts the data in the bottom middle of the screen using the canvas
+         * @param canvas makes a drawable object that can be moved around on the screen
+         *               and be updated
+         */
         private void dataHandler(Canvas canvas)
         {
-            float newXOffset = mCenterX-50;
-            float newYOffset = mCenterY+120;
+            float newXOffset = mCenterX-mCenterXHeight;
+            float newYOffset = mCenterY+mCenterYWidth;
             NumberFormat myFormat = NumberFormat.getInstance();
             myFormat.setGroupingUsed(true);
-            String text = myFormat.format(FAKE_DATA);
+            String text = myFormat.format(DATA);
             onDesiredSizeChanged(100, 100);
 
             dataPaint.setTextSize(50);

@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class LeftBottomSide extends WearableActivity {
+public class LeftTopSide extends WearableActivity {
 
     private static final SimpleDateFormat AMBIENT_DATE_FORMAT =
             new SimpleDateFormat("HH:mm", Locale.US);
@@ -22,7 +22,7 @@ public class LeftBottomSide extends WearableActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_left_bottom_side);
+        setContentView(R.layout.activity_left_top_side);
         setAmbientEnabled();
 
         mContainerView = (BoxInsetLayout) findViewById(R.id.container3);

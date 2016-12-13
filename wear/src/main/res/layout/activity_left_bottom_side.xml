@@ -14,11 +14,10 @@
         android:textColor="@android:color/white"
         app:layout_box="all" />
 
-    <TextView
-        android:id="@+id/placeholder"
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="we are on the Left Bottom side"
-        app:layout_box="all"/>
+        android:background="@drawable/team_goal"
+        />
 
 </android.support.wearable.view.BoxInsetLayout>
