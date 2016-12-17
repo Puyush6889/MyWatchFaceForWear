@@ -48,11 +48,8 @@ import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
-//        import com.example.android.wearable.complications.R;
-
-
 /**
- * Watch Face for "Adding Complications to your Watch Face" code lab.
+ * Watch Face
  */
 public class ComplicationWatchFaceService extends CanvasWatchFaceService {
 
@@ -321,18 +318,6 @@ public class ComplicationWatchFaceService extends CanvasWatchFaceService {
                     break;
             }
         }
-
-
-        public void onDrawText(Canvas canvas, Rect bounds) {
-            final Typeface typeface = Typeface.DEFAULT;
-            Paint paint = new Paint()
-            {{
-                setTextSize(40);
-                setARGB(255, 255, 255, 255);
-                setTypeface(typeface);
-            }};
-            canvas.drawText("CodeProject", 50, 100, paint);
-        }
         /*
          * Determines if tap inside a complication area or returns -1.
          */
@@ -386,7 +371,6 @@ public class ComplicationWatchFaceService extends CanvasWatchFaceService {
 
         // Fires PendingIntent associated with complication (if it has one).
         private void onComplicationTap(int complicationId) {
-            // TODO: Step 5, onComplicationTap()
             Log.d(TAG, "onComplicationTap()");
 
             ComplicationData complicationData =
@@ -535,7 +519,6 @@ public class ComplicationWatchFaceService extends CanvasWatchFaceService {
         }
 
         private void drawComplications(Canvas canvas, long currentTimeMillis) {
-            // TODO: Step 4, drawComplications()
             ComplicationData complicationData;
 
             for (int i = 0; i < COMPLICATION_IDS.length; i++) {
